@@ -1,0 +1,9 @@
+//Elimina los márgenes derecha e izquierda de la clase 'row' de Bootstrap
+.row { margin-left: inherit; margin-right: inherit; }
+
+//Estilos para la vista previa de la imagen cuando se selecciona del input file
+.img-flyer {
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
+}

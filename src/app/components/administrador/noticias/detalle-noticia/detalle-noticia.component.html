@@ -1,0 +1,66 @@
+<h1 mat-dialog-title class="color-blue-cat">Detalles</h1>
+
+<div *ngIf="!loading">
+  <div mat-dialog-content class="mat-typography">
+
+    <div class="row">
+      <div class="col-md-12">
+        <dt>Título</dt>
+        <dd>{{noticia.titulo}}</dd>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-md-12">
+        <dt>Resúmen</dt>
+        <dd>{{noticia.resumen}}</dd>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-md-12">
+        <dt>Cuerpo</dt>
+        <dd [innerHTML]="noticia.cuerpo"></dd>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-md-12">
+        <dt>Imagen</dt>
+        <img [src]="noticia.imagen" class="img-noticia mb-2">
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-md-12">
+        <dt>Video</dt>
+        <dd>
+          <a href="{{noticia.video}}" target="_blank">{{noticia.video}}</a>
+        </dd>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-md-12">
+        <dt>Noticia archivada</dt>
+        <dd>{{noticia.archivado == true ? "Si" : "No"}}</dd>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-md-12">
+        <dt>Fecha de creación</dt>
+        <dd>{{noticia.fechaRegistro | date: 'fullDate'}}</dd>
+      </div>
+    </div>
+  </div>
+  
+  <mat-dialog-actions class="d-flex justify-content-end mb-n2">
+    <button mat-raised-button class="btn-gray-cat" (click)="closeDialog()">Aceptar</button>
+  </mat-dialog-actions>
+</div>
+
+<!--Div a mostrar cuando estén cargando los datos-->
+<div class="alert alert-light text-center" *ngIf="loading">
+  <p class="d-flex justify-content-center"><mat-spinner></mat-spinner></p>
+</div>

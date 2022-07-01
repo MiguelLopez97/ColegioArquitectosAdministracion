@@ -1,0 +1,179 @@
+<h1 mat-dialog-title class="color-blue-cat">Detalles</h1>
+
+<div *ngIf="!loading">
+  <div mat-dialog-content class="mat-typography">
+    <h3 class="mat-h3 color-blue-cat">Datos generales</h3>
+
+    <div class="row">
+      <div class="col-md-6">
+        <dt>Código Colegiado</dt>
+        <dd>{{ socio.codigo }}</dd>
+      </div>
+      <div class="col-md-3">
+        <dt>DRO</dt>
+        <dd>{{ socio.dro }}</dd>
+      </div>
+      <div class="col-md-3">
+        <dt>CDA</dt>
+        <dd>{{ socio.cda }}</dd>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <dt>Nombre completo</dt>
+        <dd>{{ socio.nombreCompleto }} {{ socio.apellidoPat }} {{ socio.apellidoMat }}</dd>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <dt>Nickname</dt>
+        <dd>{{ socio.nickName }}</dd>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <dt>Currículum Vitae</dt>
+        <dd>{{ socio.curriculumVitae }}</dd>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <dt>Género</dt>
+        <dd *ngIf="socio.genero == 'H'">Hombre</dd>
+        <dd *ngIf="socio.genero == 'M'">Mujer</dd>
+        <dd *ngIf="socio.genero == 'O'">Otro</dd>
+      </div>
+      <div class="col-md-6">
+        <dt>Fecha de nacimiento</dt>
+        <dd>{{ socio.fechaNacimiento | date: 'mediumDate' }}</dd>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <dt>Teléfono fijo</dt>
+        <dd>{{ socio.telefonoFijo }}</dd>
+      </div>
+      <div class="col-12 col-md-6">
+        <dt>Teléfono móvil</dt>
+        <dd>{{ socio.telefonoMovil }}</dd>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <dt>Correo electrónico</dt>
+        <dd>{{ socio.correoElectronico }}</dd>
+      </div>
+    </div>
+
+    <hr class="mt-0 mb-1" />
+    <h3 class="mat-h3 color-blue-cat">Datos personales</h3>
+
+    <div class="row">
+      <div class="col-md-12">
+        <dt>CURP</dt>
+        <dd>{{ socio.curp }}</dd>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <dt>NSS</dt>
+        <dd>{{ socio.nss }}</dd>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <dt>INE</dt>
+        <dd>{{ socio.ife }}</dd>
+      </div>
+    </div>
+
+    <hr class="mt-0 mb-1" />
+    <h3 class="mat-h3 color-blue-cat">Datos domiciliarios</h3>
+
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <dt>Calle</dt>
+        <dd>{{ socio.calle }}</dd>
+      </div>
+      <div class="col-12 col-md-6">
+        <dt>Número</dt>
+        <dd>{{ socio.numero }}</dd>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <dt>colonia</dt>
+        <dd>{{ socio.colonia }}</dd>
+      </div>
+      <div class="col-12 col-md-6">
+        <dt>Código postal</dt>
+        <dd>{{ socio.codigoPostal }}</dd>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <dt>Ciudad</dt>
+        <dd>{{ socio.ciudad }}</dd>
+      </div>
+      <div class="col-12 col-md-6">
+        <dt>Estado</dt>
+        <dd>{{ socio.estado }}</dd>
+      </div>
+    </div>
+
+    <hr class="mt-0 mb-1" />
+    <h3 class="mat-h3 color-blue-cat">Requisitos subidos</h3>
+
+    <div class="row" *ngFor="let requisito of requisitos">
+      <div class="col-md-12">
+        <dt *ngIf="requisito.idRequisito == 1">Solicitud de ingreso</dt>
+        <dt *ngIf="requisito.idRequisito == 2">Carta de recomendación</dt>
+        <dt *ngIf="requisito.idRequisito == 3">Acta de nacimiento</dt>
+        <dt *ngIf="requisito.idRequisito == 4">INE</dt>
+        <dt *ngIf="requisito.idRequisito == 5">CURP</dt>
+        <dt *ngIf="requisito.idRequisito == 6">RFC</dt>
+        <dt *ngIf="requisito.idRequisito == 7">Comprobante de domicilio</dt>
+        <dt *ngIf="requisito.idRequisito == 8">Título profesional</dt>
+        <dt *ngIf="requisito.idRequisito == 9">Cédula profesional</dt>
+        <dt *ngIf="requisito.idRequisito == 10">Fotografía tamaño infantil</dt>
+        <dt *ngIf="requisito.idRequisito == 11">Currículum Vitae</dt>
+        <dt *ngIf="requisito.idRequisito == 12">Pago de derechos</dt>
+        <dd class="ml-3">Nombre del archivo: {{ requisito?.evidencia }}</dd>
+        <dd class="ml-3">Cotejado: {{ requisito?.cotejado == true ? 'Si' : 'No' }}</dd>
+      </div>
+    </div>
+
+    <hr class="mt-0 mb-1" *ngIf="socio.fechaBaja?.length > 0" />
+    <h3 class="mat-h3 color-blue-cat" *ngIf="socio.fechaBaja?.length > 0">Baja</h3>
+
+    <div class="row" *ngIf="socio.fechaBaja?.length > 0">
+      <div class="col-12">
+        <dt>Fecha de Baja</dt>
+        <dd>{{ socio.fechaBaja | date: 'mediumDate' }}</dd>
+      </div>
+      <div class="col-12">
+        <dt>Motivo</dt>
+        <dd>{{ socio.motivoBaja }}</dd>
+      </div>
+    </div>
+  </div>
+
+  <mat-dialog-actions class="d-flex justify-content-end mb-n2">
+    <button mat-raised-button class="btn-gray-cat" (click)="closeDialog()">Aceptar</button>
+  </mat-dialog-actions>
+</div>
+
+<!--Div a mostrar cuando estén cargando los datos-->
+<div class="alert alert-light text-center" *ngIf="loading">
+  <p class="d-flex justify-content-center"><mat-spinner></mat-spinner></p>
+</div>

@@ -1,0 +1,23 @@
+.card-agenda {
+  box-shadow: 0px 5px 5px 5px #888888;
+}
+
+//Estilos para la vista previa de la imagen cuando se selecciona del input file
+.imgFlyer {
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
+}
+
+//Botón Regresar
+.btn-back {
+  border-color: #5d5d5d;
+  color: #5d5d5d;
+  background-color: #ffffff;
+}
+
+.btn-back:hover {
+  background-color: #78797a;
+  color: #ffffff;
+}
+//End Botón Regresar

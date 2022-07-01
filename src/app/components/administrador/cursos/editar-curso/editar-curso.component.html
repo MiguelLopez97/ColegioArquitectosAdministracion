@@ -1,0 +1,46 @@
+<div class="row text-left">
+  <div class="col-12">
+    <div class="card card-shadow">
+      <div class="card-header">
+        <h4 class="card-title color-blue-cat mb-0">
+          <button mat-mini-fab color="primary" [routerLink]="['/cursos']">
+            <mat-icon>arrow_back</mat-icon>
+          </button> Editar Curso</h4>
+      </div>
+      <hr class="mb-0" />
+      <div class="card-content">
+        <div class="card-body">
+
+          <mat-tab-group>
+            <mat-tab label="Curso">
+              <div class="mt-3">
+                <app-form-curso></app-form-curso>
+              </div>
+            </mat-tab>
+            <mat-tab label="Días">
+              <div class="mt-5">
+                <app-table-dias></app-table-dias>
+              </div>
+            </mat-tab>
+            <mat-tab label="Especialidades">
+              <div class="mt-5">
+                <app-table-especialidades></app-table-especialidades>
+              </div>
+            </mat-tab>
+            <mat-tab label="Participantes">
+              <div class="mt-5">
+                <app-table-participantes></app-table-participantes>
+              </div>
+            </mat-tab>
+            <mat-tab label="Asistencias">
+              <div class="mt-5">
+                <app-table-asistencias></app-table-asistencias>
+              </div>
+            </mat-tab>
+          </mat-tab-group>          
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

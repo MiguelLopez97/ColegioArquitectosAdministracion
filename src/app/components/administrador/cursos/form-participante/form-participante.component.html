@@ -1,0 +1,36 @@
+<h2 mat-dialog-title class="card-title color-blue-cat">Editar datos del participante {{data.nombreParticipante}}</h2>
+
+<mat-dialog-content class="mat-typography" *ngIf="!loading">
+  <form #participanteForm="ngForm" (ngSubmit)="saveParticipanteCurso(participanteForm)">
+    <div class="form-body">
+      <div class="row">
+
+        <mat-form-field class="col-12 col-md-6">
+          <mat-label>Fecha de constancia</mat-label>
+          <input matInput [matDatepicker]="pickerFConstancia" #fConstancia="ngModel" name="fechaConstancia" [(ngModel)]="participante.fechaConstancia" required>
+          <mat-datepicker-toggle matSuffix [for]="pickerFConstancia"></mat-datepicker-toggle>
+          <mat-datepicker touchUi #pickerFConstancia></mat-datepicker>
+          <mat-error *ngIf="fConstancia.invalid && fConstancia.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-12 col-md-6">
+          <mat-label>Folio de constancia</mat-label>
+          <input matInput #folio="ngModel" name="folio" [(ngModel)]="participante.folioConstancia" required>
+          <mat-error *ngIf="folio.invalid && folio.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-actions">
+        <div class="text-right">
+          <button mat-raised-button type="submit" class="btn-blue-cat mr-2">Guardar</button>
+          <a mat-raised-button class="btn-gray-cat" (click)="closeDialog()">Cancelar</a>
+        </div>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<!--Div a mostrar cuando estén cargando los datos-->
+<div class="alert alert-light text-center" *ngIf="loading">
+  <p class="d-flex justify-content-center"><mat-spinner></mat-spinner></p>
+</div>

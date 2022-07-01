@@ -1,0 +1,32 @@
+<section>
+  <div class="row text-left">
+    <div class="col-12">
+      <div class="card card-shadow">
+        <div class="card-header">
+          <h4 class="card-title color-blue-cat mb-0"><i class="fas fa-comment-alt color-gray-cat"></i> Mensajes y Notificaciones</h4>
+        </div>
+        <hr class="mb-0">
+        <div class="card-content">
+          <div class="card-body">
+
+            <!---Tabsets (Mensajes del Presidente y Notificaciones)-->
+            <ul class="nav nav-tabs nav-justified" role="tablist">              
+              <li class="nav-item" role="presentation" *ngFor="let route of routes">
+                <a class="nav-link" data-toggle="tab" [routerLink]="[route.url]" [routerLinkActive]="['active']" role="tab" aria-selected="false">
+                  <i class="{{route.icon}}"></i> {{route.title}}
+                </a>
+              </li>
+            </ul>
+
+            <div class="tab-content">
+              <!--Aquí se cargan las vistas que se seleccionen en los Tabs-->
+              <router-outlet></router-outlet>
+            </div>
+            <!---End Tabsets (Mensajes del Presidente y Notificaciones)-->
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

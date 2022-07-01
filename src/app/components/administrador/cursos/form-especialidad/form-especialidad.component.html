@@ -1,0 +1,39 @@
+<h2 mat-dialog-title class="card-title color-blue-cat">{{ titulo }}</h2>
+
+<mat-dialog-content class="mat-typography" *ngIf="!loading">
+  <form #especialidadForm="ngForm" (ngSubmit)="saveEspecialidadCurso(especialidadForm)">
+    <div class="form-body">
+      <div class="row">
+
+        <!---Aparecerá este campo solo cuando sea un nuevo registro-->
+        <mat-form-field class="col-12 col-md-6" *ngIf="data.idCurso == undefined">
+          <mat-label>Nombre</mat-label>
+          <mat-select name="socioEspecialidad" #socioEspecialidad="ngModel" [(ngModel)]="especialidad.idEspecialidadSocio" required>
+            <mat-option *ngFor="let item of catalogoEspecialidades" [value]="item.idEspecialidadSocio">
+              {{item.nombreLargo}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="socioEspecialidad.invalid && socioEspecialidad.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-12 col-md-6">
+          <mat-label>Horas</mat-label>
+          <input matInput name="hours" #horas="ngModel" [(ngModel)]="especialidad.horas" required>
+          <mat-error *ngIf="horas.invalid && horas.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-actions">
+        <div class="text-right">
+          <button mat-raised-button type="submit" class="btn-blue-cat mr-2">Guardar</button>
+          <a mat-raised-button class="btn-gray-cat" (click)="closeDialog()">Cancelar</a>
+        </div>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<!--Div a mostrar cuando estén cargando los datos-->
+<div class="alert alert-light text-center" *ngIf="loading">
+  <p class="d-flex justify-content-center"><mat-spinner></mat-spinner></p>
+</div>

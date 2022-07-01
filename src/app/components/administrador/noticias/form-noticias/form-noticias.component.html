@@ -1,0 +1,135 @@
+<h2 mat-dialog-title class="card-title color-blue-cat">{{ titulo }}</h2>
+
+<mat-dialog-content class="mat-typography" *ngIf="!loading">
+  <form #noticiaForm="ngForm" (ngSubmit)="saveNoticia(noticiaForm)">
+    <div class="form-body">
+      <div class="row">
+        <mat-form-field class="col-12">
+          <mat-label>Título</mat-label>
+          <input matInput #titulo="ngModel" name="titulo" [(ngModel)]="noticia.titulo" required />
+          <mat-error *ngIf="titulo.invalid && titulo.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="col-12">
+          <mat-label>Resumen</mat-label>
+          <input matInput #resumen="ngModel" name="resumen" [(ngModel)]="noticia.resumen" required />
+          <mat-error *ngIf="resumen.invalid && resumen.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row mb-2">
+        <div class="col-12">
+          <mat-label>Cuerpo</mat-label>
+          <div class="d-none"><input #quillFile type="file" accept="image/*" (change)="quillFileSelected($event)" /></div>
+          <quill-editor
+            [modules]="editorModules"
+            (onEditorCreated)="getEditorInstance($event)"
+            (onContentChanged)="onContentChanged($event)"
+            [style]="editorStyle"
+            name="cuerpo"
+            [(ngModel)]="noticia.cuerpo"
+            placeholder="Escriba el cuerpo de la noticia aquí"
+            required
+          ></quill-editor>
+        </div>
+      </div>
+
+      <!-- ================================================================= -->
+      <!-- Manejo de Archivos -->
+      <!-- ================================================================= -->
+
+      <div class="row d-none" *ngIf="noticia.idNoticia">
+        <div class="col-12">
+          <p><strong>Imagen:</strong> {{ noticia.imagen ? noticia.imagen : 'No hay imagen' }}</p>
+          <!-- <p><strong>Video:</strong> {{ noticia.video ? noticia.video : 'No hay video' }}</p>
+          <p><strong>Archivo:</strong> {{ noticia.archivo ? noticia.archivo : 'No hay archivo' }}</p> -->
+        </div>
+      </div>
+
+      <!-- esUrl Sliders Starts -->
+      <!-- <div class="row">
+        <div class="col-12 col-md-4" *ngIf="newArchivo.image">
+          <mat-slide-toggle [(ngModel)]="esUrl.image" [ngModelOptions]="{ standalone: true }">Imagen desde URL</mat-slide-toggle>
+        </div>
+        <div class="col-12 col-md-4" *ngIf="newArchivo.video">
+          <mat-slide-toggle [(ngModel)]="esUrl.video" [ngModelOptions]="{ standalone: true }">Video desde URL</mat-slide-toggle>
+        </div>
+        <div class="col-12 col-md-4" *ngIf="newArchivo.archivo">
+          -- <mat-slide-toggle [(ngModel)]="esUrl.archivo" [ngModelOptions]="{ standalone: true }">Archivo desde URL</mat-slide-toggle> --
+        </div>
+        <div class="col-12 col-md-4" *ngIf="!newArchivo.image">
+          <button mat-raised-button class="btn-red-cat" (click)="newArchivo.image = true">Eliminar imagen</button>
+        </div>
+        <div class="col-12 col-md-4" *ngIf="!newArchivo.video">
+          <button mat-raised-button class="btn-red-cat" (click)="newArchivo.video = true">Eliminar video</button>
+        </div>
+        <div class="col-12 col-md-4" *ngIf="!newArchivo.archivo">
+          <button mat-raised-button class="btn-red-cat" (click)="newArchivo.archivo = true">Eliminar archivo</button>
+        </div>
+      </div> -->
+      <!-- esUrl Sliders Ends -->
+
+      <!-- Input/Select Starts -->
+      <div class="row mt-3">
+        <mat-form-field class="col-12 col-md-4 d-none" *ngIf="esUrl.image && newArchivo.image">
+          <mat-label>URL de la imagen</mat-label>
+          <input matInput name="imagen" [(ngModel)]="noticia.imagen" />
+        </mat-form-field>
+
+        <div class="col-12 col-md-6 col-xl-4" *ngIf="!esUrl.image && newArchivo.image">
+          <img src="{{ imgUri }}" class="imgPortada img-thumbnail" />
+          <a mat-raised-button class="w-100" color="accent" (click)="fileInput.click()">
+            Seleccionar imagen de portada
+            <input class="form-control" #fileInput type="file" accept=".png, .jpg, .jpeg" (change)="onChangeFile($event, 'img')" style="display: none" />
+          </a>
+          <p class="mt-2" *ngIf="imagen">{{ imagen.fileName }}.{{ imagen.fileExt }}</p>
+        </div>
+
+        <!-- <mat-form-field class="col-12 col-md-4" *ngIf="esUrl.video && newArchivo.video">
+          <mat-label>URL del video</mat-label>
+          <input matInput name="video" [(ngModel)]="noticia.video" />
+        </mat-form-field>
+
+        <div class="col-12 col-md-4" *ngIf="!esUrl.video && newArchivo.video">
+          <a mat-raised-button class="" color="accent" (click)="fileInput.click()">
+            Seleccionar archivo de video
+            <input class="form-control" #fileInput type="file" accept=".mp4" (change)="onChangeFile($event, 'vid')" style="display: none" />
+          </a>
+          <p class="mt-2" *ngIf="video">{{ video.fileName }}.{{ video.fileExt }}</p>
+        </div>
+
+        <mat-form-field class="col-12 col-md-4" *ngIf="esUrl.archivo && newArchivo.archivo">
+          <mat-label>URL del Archivo</mat-label>
+          <input matInput name="archivo" [(ngModel)]="noticia.archivo" />
+        </mat-form-field>
+
+        <div class="col-12 col-md-4" *ngIf="!esUrl.archivo && newArchivo.archivo">
+          <a mat-raised-button class="" color="accent" (click)="fileInput.click()">
+            Seleccionar archivo PDF
+            <input class="form-control" #fileInput type="file" accept=".pdf" (change)="onChangeFile($event, 'file')" style="display: none" />
+          </a>
+          <p class="mt-2" *ngIf="archivo">{{ archivo.fileName }}.{{ archivo.fileExt }}</p>
+        </div> -->
+      </div>
+      <!-- Input/Select Ends -->
+
+      <div class="row">
+        <mat-checkbox color="primary" class="col-12" *ngIf="this.data.idNoticia" name="archivado" [(ngModel)]="noticia.archivado">Archivar noticia</mat-checkbox>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <div class="text-right">
+        <button mat-raised-button type="submit" class="btn-blue-cat mr-2">Guardar</button>
+        <a mat-raised-button class="btn-gray-cat" (click)="closeDialog()">Cancelar</a>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<!--Div a mostrar cuando estén cargando los datos-->
+<div class="alert alert-light text-center" *ngIf="loading">
+  <p class="d-flex justify-content-center"><mat-spinner></mat-spinner></p>
+</div>

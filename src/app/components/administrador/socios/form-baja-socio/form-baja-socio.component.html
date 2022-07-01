@@ -1,0 +1,22 @@
+<h2 mat-dialog-title class="card-title color-blue-cat">Marcar Baja</h2>
+
+<mat-dialog-content class="mat-typography">
+  <form #bajaForm="ngForm" (ngSubmit)="saveBaja(bajaForm)">
+    <div class="form-body">
+      <div class="row">
+        <mat-form-field class="col-12">
+          <mat-label>Motivo de baja</mat-label>
+          <textarea matInput rows="3" #motivo="ngModel" name="motivo" [(ngModel)]="motivoBaja" required maxlength="255"></textarea>
+          <mat-error *ngIf="motivo.invalid && motivo.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <div class="text-right">
+        <button mat-raised-button type="submit" class="btn-blue-cat mr-2">Guardar</button>
+        <a mat-raised-button class="btn-gray-cat" (click)="closeDialog()">Cancelar</a>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>

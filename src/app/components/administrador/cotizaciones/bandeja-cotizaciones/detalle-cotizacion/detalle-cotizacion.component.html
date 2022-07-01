@@ -1,0 +1,101 @@
+<h1 mat-dialog-title class="color-blue-cat">Cotización</h1>
+
+<div *ngIf="!loading">
+  <div mat-dialog-content class="mat-typography">
+    <div class="row">
+      <div class="col-12 col-md-4">
+        <dt>Titulo</dt>
+        <dd>{{ cotizacion.obra }}</dd>
+      </div>
+      <div class="col-12 col-md-4">
+        <dt>Uso de Obra</dt>
+        <dd>{{ cotizacion.usoDeObra }}</dd>
+      </div>
+      <div class="col-12 col-md-4">
+        <dt>Factor de Calidad</dt>
+        <dd>{{ cotizacion.factorCalidad }}</dd>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-md-4">
+        <dt>Superficie</dt>
+        <dd>{{ cotizacion.superficie }} (m²)</dd>
+      </div>
+      <div class="col-12 col-md-4">
+        <dt>Salario Mínimo Vigente</dt>
+        <dd>{{ cotizacion.smv | currency: 'MXN' }}</dd>
+      </div>
+      <div class="col-12 col-md-4">
+        <dt>Valor Factor</dt>
+        <dd>{{ cotizacion.valorFactor }}</dd>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-md-4">
+        <dt>Arancel Total</dt>
+        <dd>{{ cotizacion.arancelTotal | currency: 'MXN' }}</dd>
+      </div>
+      <div class="col-12 col-md-4">
+        <dt>Folio</dt>
+        <dd>{{ cotizacion.folio ? cotizacion.folio : 'N/A' }}</dd>
+      </div>
+      <div class="col-12 col-md-4">
+        <dt>Propietario</dt>
+        <dd>{{ cotizacion.propietario }}</dd>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-md-4">
+        <dt>Ubicación</dt>
+        <dd>{{ cotizacion.ubicacion }}</dd>
+      </div>
+      <div class="col-12 col-md-4">
+        <dt>Fecha de Creación</dt>
+        <dd>{{ cotizacion.fechaCreacion | date: 'medium' }}</dd>
+      </div>
+      <div class="col-12 col-md-4">
+        <dt>Fecha de Aprobación</dt>
+        <dd>{{ cotizacion.fechaAprobacion | date: 'medium' }}</dd>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-md-4">
+        <dt>Estatus</dt>
+        <dd>{{ cotizacion.estatus }}</dd>
+      </div>
+    </div>
+
+    <hr />
+    <div class="row">
+      <div class="col-12">
+        <h3>Detalles</h3>
+
+        <mat-accordion class="acc-headers-align" multi>
+          <mat-expansion-panel *ngFor="let d of cotizacion.detalle">
+            <mat-expansion-panel-header>
+              <mat-panel-title>{{ d.corresponsal }}</mat-panel-title>
+              <!-- <mat-panel-description>
+                  Type your name and age
+                </mat-panel-description> -->
+            </mat-expansion-panel-header>
+
+            <strong>Porcentaje de Arancel:</strong>
+            {{ d.porcentajeArancel }}%<br />
+            <strong>Monto de Arancel:</strong>
+            {{ d.montoArancel | currency: 'MXN' }}<br />
+            <strong>Porcentaje Real:</strong> {{ d.porcentajeReal }}%<br />
+            <strong>Monto Real:</strong> {{ d.montoReal | currency: 'MXN' }}
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
+
+    <div class="form-actions mt-3">
+      <div class="text-right">
+        <!-- <button *ngIf="cotizacion.idEstatus !== 3" mat-raised-button class="btn-blue-cat mr-2" (click)="aprobarCotizacion()">Aprobar</button> -->
+        <!-- <button *ngIf="cotizacion.idEstatus !== 4" mat-raised-button class="btn-red-cat mr-2" (click)="rechazarCotizacion()">Rechazar</button> -->
+        <a mat-raised-button class="btn-gray-cat" (click)="closeDialog()">Aceptar</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+.img-noticia {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+//Estilos para ajustar el contenido del innerHTML
+:host ::ng-deep .col-12 {
+    position: relative;
+    width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+:host ::ng-deep .col-12 img { 
+    max-width: 100%;
+}

@@ -1,0 +1,82 @@
+<h1 mat-dialog-title class="color-blue-cat">Detalles</h1>
+
+<div mat-dialog-content class="mat-typography" *ngIf="!loading">
+  <div class="row" *ngIf="producto != null">
+    <div class="col-md-12">
+      <dt>Producto</dt>
+      <dd>{{ producto.descripcion }}</dd>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <dt>Precio Socio</dt>
+      <dd>{{ producto.precioSocio | currency: 'MXN' }}</dd>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <dt>Precio Público</dt>
+      <dd>{{ producto.precioPublico | currency: 'MXN' }}</dd>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <dt>Precio Estudiantes</dt>
+      <dd>{{ producto.precioEstudiante | currency: 'MXN' }}</dd>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <dt>Vigencia</dt>
+      <dd>{{ producto.vigencia | date: 'mediumDate' }}</dd>
+    </div>
+    <div class="col-md-6">
+      <dt>Activo</dt>
+      <dd>{{ producto.esActivo ? 'Sí' : 'No' }}</dd>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <dt>SAT Unidad</dt>
+      <dd>{{ producto.satUnidad }}</dd>
+    </div>
+    <div class="col-md-6">
+      <dt>SAT Clave</dt>
+      <dd>{{ producto.satClave }}</dd>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <dt>SAT IEPS</dt>
+      <dd>{{ producto.satieps }}</dd>
+    </div>
+    <div class="col-md-6">
+      <dt>DAT IVA</dt>
+      <dd>{{ producto.sativa }}</dd>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <dt>SAT Retención del IVA</dt>
+      <dd>{{ producto.sativaRet }}</dd>
+    </div>
+  </div>
+
+  <div class="form-actions mt-2">
+    <div class="text-right">
+      <button mat-raised-button class="btn-gray-cat" (click)="closeDialog()">Aceptar</button>
+    </div>
+  </div>
+</div>
+
+<!--Div a mostrar cuando estén cargando los datos-->
+<div class="alert alert-light text-center" *ngIf="loading">
+  <p class="d-flex justify-content-center"><mat-spinner diameter="50"></mat-spinner></p>
+</div>

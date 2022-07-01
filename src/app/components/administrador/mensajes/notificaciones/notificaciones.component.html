@@ -1,0 +1,68 @@
+<form class="form">
+  <div class="form-body">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label>Notificación</label>
+          <textarea rows="3" class="form-control"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="form-group">
+          <label>Desde</label>
+          <input type="date" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label>Hasta</label>
+          <input type="date" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Alcance</label>
+          <select class="form-control">
+            <option *ngFor="let socio of socios">{{socio.nombre + ' ' + socio.aPaterno + ' ' + socio.aMaterno}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-actions">
+    <div class="text-right">                                   
+      <button type="button" class="btn btn-gray-cat">Agregar</button>                            
+    </div>
+  </div>
+</form>
+
+<!---Tabla Notificaciones-->
+<table class="table table-hover table-responsive-md">
+  <thead class="bg-blue-cat">
+    <tr>
+      <td class="text-white">Codigo</td>
+      <td class="text-white">Notificación</td>
+      <td class="text-white">Desde</td>
+      <td class="text-white">Hasta</td>
+      <td class="text-white">Opciones</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let mensaje of mensajes">
+      <td>{{mensaje.codigo}}</td>
+      <td>{{mensaje.mensaje}}</td>
+      <td>{{mensaje.desde}}</td>
+      <td>{{mensaje.hasta}}</td>
+      <td>
+        <a class="danger p-0" data-original-title="" placement="top" ngbTooltip="Eliminar">
+          <i class="fas fa-times font-medium-3 mr-2"></i>
+        </a>
+      </td>
+    </tr>             
+  </tbody>
+</table>
+<!---End Tabla Notificaciones-->

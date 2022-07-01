@@ -1,0 +1,141 @@
+/*Estilos Generales [cat=(Colegio de Arquitectos Tabasqueños)]*/
+.btn-blue-cat {
+  background-color: #2054a1;
+  color: #ffffff;
+}
+
+.btn-blue-cat:hover {
+  background-color: #112f5f;
+  color: #ffffff;
+}
+
+.btn-gray-cat {
+  background-color: #78797a;
+  color: #ffffff;
+}
+
+.btn-gray-cat:hover {
+  background-color: #444444;
+  color: #ffffff;
+}
+
+.btn-red-cat {
+  background-color: #a32330;
+  color: #ffffff;
+}
+
+.btn-red-cat:hover {
+  background-color: #721c24;
+  color: #ffffff;
+}
+
+.color-blue-cat {
+  color: #2054a1;
+}
+
+.color-gray-cat {
+  color: #78797a;
+}
+
+.bg-blue-cat {
+  background-color: #2054a1;
+}
+
+.bg-gray-cat {
+  background-color: #78797a;
+}
+/*End Estilos Generales*/
+
+/*Estilos para las Cards contenedoras de cada módulo*/
+.card-shadow { box-shadow: 0px 5px 5px 5px #888888; }
+
+/*Estilos para los alerts (mismos colores que Bootstrap)*/
+.alert-info {
+  color: #0c5460 !important;
+  background-color: #d1ecf1 !important;
+  border-color: #bee5eb !important;
+}
+
+.alert-danger {
+  color: #721c24 !important;
+  background-color: #f8d7da !important;
+  border-color: #f5c6cb !important;
+}
+
+.alert-warning {
+  color: #856404 !important;
+  background-color: #fff3cd !important;
+  border-color: #ffeeba !important;
+}
+/*End Estilos para los alerts (mismos colores que Bootstrap)*/
+
+/*Estilos para el componente de carga de imágenes*/
+.afu-upload-btn {
+  background-color: #2054a1 !important;
+  color: #ffffff !important;
+}
+
+.afu-select-btn {
+  background-color: #5d5d5d !important;
+  color: #ffffff !important;
+  border-color: #5d5d5d !important;
+  opacity: 1 !important;
+}
+
+.afu-upload-btn:hover {
+  background-color: #112f5f !important;
+}
+
+.afu-select-btn:hover {
+  background-color: #4c4c4c !important;
+}
+
+.afu-dragndrop-box {
+  width: 100% !important;
+  padding-bottom: 150px;
+}
+
+.afu-constraints-info {
+  font-style: normal !important;
+}
+/*End Estilos para el componente de carga de imágenes*/
+
+/*Estilos de los tabs de Detalle Proyecto*/
+ngb-tabset ul.nav-tabs li a.nav-link.active {
+  color: #2054a1;
+  font-weight: 500;
+}
+
+ngb-tabset ul.nav-tabs li a.nav-link {
+  color: #78797a;
+}
+/*End Estilos de los tabs de Detalle Proyecto*/
+
+/*Estilos para quitar margen superior a los dd (listas)*/
+dd {
+  line-height: unset;
+}
+/*End Estilos para quitar margen superior a los dd (listas)*/
+
+/*Estilos para Angular Material*/
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+button:focus {
+  outline: unset;
+}
+.mat-tooltip {
+  font-size: 13px !important;
+}
+
+/*Estilo para los iconos cuando se muestra un alert de Bootstrap (Alert 'No hay datos' por ejemplo)*/
+.icon-material {
+  font-size: 80px;
+  width: 80px !important;
+  height: 80px !important;
+}

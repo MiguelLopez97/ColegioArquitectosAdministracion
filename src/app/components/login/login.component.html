@@ -1,0 +1,55 @@
+<section id="login">
+  <div class="container-fluid">
+    <div class="row full-height-vh m-0">
+      <div class="col-12 d-flex align-items-center justify-content-center">
+        <div class="card">
+          <div class="card-content">
+            <div class="card-body login-img">
+              <div class="row m-0">
+
+                <div class="col-lg-6 d-lg-block d-none py-2 px-3 text-center align-middle">
+                  <img src="assets/img/logo_login.png" class="img-fluid" width="400" height="230">
+                </div>
+
+                <div class="col-lg-6 col-md-12 bg-white px-4 pt-3">
+                  <h4 class="card-title mb-2 text-center">Iniciar sesión</h4>
+                  <p class="card-text mb-3">Bienvenido, inicie sesión en su cuenta.</p>
+                  <form (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm">
+                    
+                    <input type="text" 
+                            class="form-control mb-3" 
+                            placeholder="Correo electrónico"
+                            [(ngModel)]="correoElectronico" 
+                            name="correo"
+                            autofocus 
+                            required>
+
+                    <input type="password" 
+                            class="form-control mb-3" 
+                            placeholder="Contraseña"
+                            [(ngModel)]="contrasenia"
+                            name="contrasenia"
+                            required>
+
+                    <div class="fg-actions d-flex justify-content-between mt-4 mb-3">
+                      <button mat-raised-button type="submit" class="btn-sign-in">Ingresar</button>
+                      <a mat-raised-button [routerLink]="['/pages/register']" class="btn-register">Registrarme</a>
+                    </div>
+                  </form>
+
+                  <hr class="m-0">
+
+                  <div class="d-flex justify-content-around mt-2 mb-2">
+                    <img src="assets/img/logo_login.png" alt="Logo del CAT" width="25" height="25">
+                    <small>{{currentDate | date: 'yyyy'}} • Colegio de Arquitectos Tabasqueños, A.C.</small>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

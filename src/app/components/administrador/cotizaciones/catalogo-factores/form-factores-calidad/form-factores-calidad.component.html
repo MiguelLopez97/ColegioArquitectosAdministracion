@@ -1,0 +1,51 @@
+<form class="form">
+  <div class="form-body">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Tipo de Trámite</label>
+          <select class="form-control">
+            <option *ngFor="let tipo of tipoUso">{{tipo.uso}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label>Calidad</label>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label>Fact. Calidad</label>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-actions">
+    <div class="text-right">            
+      <button type="button" class="btn btn-gray-cat">Agregar</button>                     
+    </div>
+  </div>
+</form>
+
+
+<!---Tabla Factores de Calidad-->
+<table class="table table-hover table-responsive-md">
+  <thead class="bg-blue-cat">
+    <tr>
+      <td class="text-white">Uso</td>
+      <td class="text-white">Calidad</td>
+      <td class="text-white">Fact. Calidad</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>VIVIENDA UNIFAMILIAR</td>
+      <td>INT. SOCIAL</td>
+      <td>1.12</td>
+    </tr>             
+  </tbody>
+</table>
+<!---End Tabla Factores de Calidad-->

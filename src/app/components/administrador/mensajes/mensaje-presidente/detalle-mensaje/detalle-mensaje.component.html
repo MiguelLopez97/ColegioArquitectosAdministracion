@@ -1,0 +1,42 @@
+<h1 mat-dialog-title class="color-blue-cat">Detalles</h1>
+
+<div *ngIf="!loading">
+  <div mat-dialog-content class="mat-typography">
+    <div class="row">
+      <div class="col-md-12">
+        <dt>Mensaje # {{ mensaje.idMensaje }}</dt>
+        <dd></dd>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <dt>Mensaje</dt>
+        <dd [innerText]="mensaje.mensaje"></dd>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <dt>Vigente Desde</dt>
+        <dd>{{ mensaje.vigenteDesde | date: 'fullDate' }}</dd>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <dt>Vigente Hasta</dt>
+        <dd>{{ mensaje.vigenteHasta | date: 'fullDate' }}</dd>
+      </div>
+    </div>
+
+    <mat-dialog-actions class="d-flex justify-content-end mb-n2">
+      <button mat-raised-button class="btn-gray-cat" (click)="closeDialog()">Aceptar</button>
+    </mat-dialog-actions>
+  </div>
+
+  <!--Div a mostrar cuando estén cargando los datos-->
+  <div class="alert alert-light text-center" *ngIf="loading">
+    <p class="d-flex justify-content-center"><mat-spinner diameter="50"></mat-spinner></p>
+  </div>
+</div>

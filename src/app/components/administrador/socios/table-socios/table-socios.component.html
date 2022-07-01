@@ -1,0 +1,75 @@
+<form class="form">
+  <div class="form-body">
+    <div class="row d-flex justify-content-end">
+      <div class="col-md-3">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Buscar">
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!---Tabla Socios-->
+<table class="table table-hover table-responsive-md">
+  <thead class="bg-blue-cat">
+    <tr>
+      <td class="text-white">Código</td>
+      <td class="text-white">Apellido Paterno</td>
+      <td class="text-white">Apellido Materno</td>
+      <td class="text-white">Nombre</td>
+      <td class="text-white">DRO</td>
+      <td class="text-white">CDA</td>
+      <td class="text-white">Teléfono Móvil</td>
+      <td class="text-white">Correo Electrónico</td>
+      <td class="text-white">Opciones</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let socio of socios">
+      <td>{{socio.codigo}}</td>
+      <td>{{socio.apellidoPat}}</td>
+      <td>{{socio.apellidoMat}}</td>
+      <td>{{socio.nombreCompleto}}</td>
+      <td>{{socio.dro}}</td>
+      <td>{{socio.cda}}</td>
+      <td>{{socio.telefonoMovil}}</td>
+      <td>{{socio.correoElectronico}}</td>
+      <td>
+        <a class="info p-0" data-original-title="" placement="top" ngbTooltip="Detalle" (click)="open(content)">
+          <i class="fas fa-eye font-medium-3 mr-2"></i>
+        </a>
+
+        <!---Modal "Detalles"-->
+        <ng-template #content let-c="close" let-d="dismiss">  
+          <div class="modal-header bg-blue-cat text-white">
+            <h4 class="modal-title" id="modal-basic-title">Detalles</h4>
+          </div>
+          <div class="modal-body">    
+            <dl>
+              <dt>Código</dt>
+              <dd>{{socio.codigo}}</dd>
+              <dt>Nombre</dt>
+              <dd>{{socio.nombreCompleto}} {{socio.apellidoPat}} {{socio.apellidoMat}}</dd>
+              <dt>DRO</dt>
+              <dd>{{socio.dro}}</dd>
+              <dt>CDA</dt>
+              <dd>{{socio.cda}}</dd>
+              <dt>Teléfono Móvil</dt>
+              <dd>{{socio.telefonoMovil}}</dd>
+              <dt>Correo Electrónico</dt>
+              <dd>{{socio.correoElectronico}}</dd>
+            </dl>  
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-gray-cat" aria-label="Close" (click)="d('Cross click')">Aceptar</button>     
+          </div> 
+        </ng-template>
+        <!---End Modal "Detalles"-->
+
+      </td>
+    </tr>             
+  </tbody>
+</table>
+<!---End Tabla Socios-->
+

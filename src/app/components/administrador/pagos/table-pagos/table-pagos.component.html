@@ -1,0 +1,117 @@
+<form class="form" #historialPagoForm="ngForm"> <!---(ngSubmit)="getHistorialPagos()"-->
+  <div class="form-body">
+    <div class="row">
+      <mat-form-field class="col-md-3">
+        <mat-label>Fecha desde</mat-label>
+        <input matInput [matDatepicker]="picker" #dateInicio="ngModel" name="fechaInicio" [ngModel]="fechaInicio" (ngModelChange)="convertDateInicio($event)" required />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #ref (closed)="changeGetHistorialPagos(ref)" touchUi #picker></mat-datepicker>
+        <mat-error *ngIf="dateInicio.invalid && dateInicio.touched">*Campo requerido</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-md-3">
+        <mat-label>Hasta</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker1"
+          #dateFin="ngModel"
+          [disabled]="fechaInicio == null"
+          name="fechaFin"
+          [ngModel]="fechaFin"
+          (ngModelChange)="convertDateFin($event)"
+          required
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #ref (closed)="changeGetHistorialPagos(ref)" touchUi #picker1></mat-datepicker>
+        <mat-error *ngIf="dateFin.invalid && dateFin.touched">*Campo requerido</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+</form>
+
+<!--Input para filtrar datos-->
+<div class="row">
+  <mat-form-field class="col-12 col-md-4">
+    <mat-label>Filtrar</mat-label>
+    <input matInput (keyup)="applyFilter($event)" #input />
+  </mat-form-field>
+</div>
+
+<!---Tabla Pagos-->
+<table mat-table matSort [dataSource]="dataSource" class="w-100 table-hover table-responsive-md">
+  <!--Columna Folio-->
+  <ng-container matColumnDef="folio">
+    <th class="bg-blue-cat text-white" mat-header-cell *matHeaderCellDef mat-sort-header>Folio</th>
+    <td mat-cell *matCellDef="let element">
+      <a class="text-primary" (click)="openDialogDetalles(element.idPago)">
+        {{ element.folio }}
+      </a>
+    </td>
+  </ng-container>
+
+  <!--Columna Tipo de pago-->
+  <ng-container matColumnDef="tipoPago">
+    <th class="bg-blue-cat text-white" mat-header-cell *matHeaderCellDef mat-sort-header>Tipo de pago</th>
+    <td mat-cell *matCellDef="let element">{{ element.tipoDePago }}</td>
+  </ng-container>
+
+  <!--Columna Socio-->
+  <ng-container matColumnDef="socio">
+    <th class="bg-blue-cat text-white" mat-header-cell *matHeaderCellDef mat-sort-header>Socio</th>
+    <td mat-cell *matCellDef="let element">{{ element.idSocio }}</td>
+  </ng-container>
+
+  <!--Columna Producto -->
+  <ng-container matColumnDef="producto">
+    <th class="bg-blue-cat text-white" mat-header-cell *matHeaderCellDef mat-sort-header>Producto</th>
+    <td mat-cell *matCellDef="let element">{{ element.producto }}</td>
+  </ng-container>
+
+  <!--Columna Fecha de pago -->
+  <ng-container matColumnDef="fechaPago">
+    <th class="bg-blue-cat text-white" mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de pago</th>
+    <td mat-cell *matCellDef="let element">Por definir</td>
+  </ng-container>
+
+  <!--Columna Monto -->
+  <ng-container matColumnDef="monto">
+    <th class="bg-blue-cat text-white" mat-header-cell *matHeaderCellDef mat-sort-header>Monto</th>
+    <td mat-cell *matCellDef="let element">{{ element.monto | currency: 'MXN' }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns" [ngClass]="{ 'd-none': loadingHistorial }"></tr>
+</table>
+<!---End Tabla Pagos-->
+
+<!---Mensaje inicial para dar indicaciones al Usuario--->
+<div class="alert alert-info text-center" *ngIf="showFirstMessage" [ngClass]="{ 'd-none': loadingHistorial }">
+  <p><mat-icon class="icon-material">info</mat-icon></p>
+  <h4 class="alert-heading">Especifique una fecha de inicio y una fecha final para realizar la búsqueda</h4>
+</div>
+
+<!--Div a mostrar cuando estén cargando los datos-->
+<div class="alert alert-light text-center" *ngIf="loadingHistorial">
+  <p class="d-flex justify-content-center"><mat-spinner></mat-spinner></p>
+</div>
+
+<!--Div a mostrar cuando no haya datos-->
+<!-- <div class="alert alert-warning text-center" *ngIf="!loadingHistorial && dataSource.data.length === 0">
+  <p class="d-flex justify-content-center"><mat-icon class="icon-material">info</mat-icon></p>
+  <h4 class="alert-heading">No hay datos para mostrar</h4>
+</div> -->
+
+<!---Mensaje a mostrar cuando no haya registros entre las fechas indicadas--->
+<div class="alert alert-warning text-center" *ngIf="dataSource.data.length === 0 && !error && !showFirstMessage" [ngClass]="{ 'd-none': loadingHistorial }">
+  <p class="d-flex justify-content-center"><mat-icon class="icon-material">info</mat-icon></p>
+  <h4 class="alert-heading">No hay registros de las fechas {{ fechaInicio | date: 'mediumDate' }} al {{ fechaFin | date: 'mediumDate' }}</h4>
+  <p>Intente una nueva búsqueda</p>
+</div>
+
+<!---Mensaje a mostrar cuando la Fecha Final sea mayor a la Fecha Inicial o en caso de algún error--->
+<div class="alert alert-danger text-center" *ngIf="error || (dataSource.data.length === 0 && error)" [ngClass]="{ 'd-none': loadingHistorial }">
+  <p class="d-flex justify-content-center"><mat-icon class="icon-material">cancel</mat-icon></p>
+  <h4 class="alert-heading">{{ errorMessage }}</h4>
+</div>
+
+<mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>

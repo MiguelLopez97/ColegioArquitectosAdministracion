@@ -1,0 +1,41 @@
+<form class="form">
+  <div class="form-body">
+    <div class="row">
+      <div class="col-md-10">
+        <div class="form-group">
+          <label>Tipo de Uso</label>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <button type="button" class="btn btn-agregar">Agregar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!---Tabla Factores de Uso-->
+<table class="table table-hover table-responsive-md">
+  <thead class="bg-blue-cat">
+    <tr>
+      <td class="text-white">Uso</td>
+      <td class="text-white">Opciones</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let tipo of tipoUso">
+      <td>{{tipo.uso}}</td>
+      <td>
+        <a class="info p-0" placement="top" ngbTooltip="Editar">
+          <i class="fas fa-pen font-medium-3 mr-2"></i>
+        </a>
+        <a class="danger p-0" data-original-title="" placement="top" ngbTooltip="Eliminar">
+          <i class="fas fa-times font-medium-3 mr-2"></i>
+        </a>
+      </td>
+    </tr>             
+  </tbody>
+</table>
+<!---End Tabla Factores de Uso-->

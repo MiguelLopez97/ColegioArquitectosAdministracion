@@ -1,0 +1,30 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "importHelpers": true,
+    "outDir": "./dist/out-tsc",
+    "baseUrl": "src",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es5", //"es5" Estaba en ES6, volver a dejar en ES6 en caso de algun error
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2018", //"es2016"
+      "dom"
+    ],
+    "paths": { //Lo agregué para quitar la advertencia del 'warning' de 'cryptojs'
+      "crypto": [
+        "../../node_modules/crypto-js"
+      ]
+    }
+  },
+  "angularCompilerOptions": {
+    "preserveWhitespaces": false,
+    "strictTemplates": true
+  }
+}

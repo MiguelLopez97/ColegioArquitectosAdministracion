@@ -1,0 +1,37 @@
+<h1 mat-dialog-title class="color-blue-cat">Detalles</h1>
+
+<div *ngIf="!loading">
+  <div mat-dialog-content class="mat-typography">
+    <div class="row">
+      <div class="col-md-12">
+        <dt>Título</dt>
+        <dd>{{ normateca.titulo }}</dd>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <dt>Archivo</dt>
+        <dd>
+          <a href="{{ normateca.archivo }}" target="_blank">{{ normateca.archivo }}</a>
+        </dd>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <dt>Palabras clave</dt>
+        <dd>{{ normateca.tags }}</dd>
+      </div>
+    </div>
+  </div>
+
+  <mat-dialog-actions class="d-flex justify-content-end mb-n2">
+    <button mat-raised-button class="btn-gray-cat" (click)="closeDialog()">Aceptar</button>
+  </mat-dialog-actions>
+</div>
+
+<!--Div a mostrar cuando estén cargando los datos-->
+<div class="alert alert-light text-center" *ngIf="loading">
+  <p class="d-flex justify-content-center"><mat-spinner></mat-spinner></p>
+</div>

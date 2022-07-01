@@ -1,0 +1,56 @@
+<!---Tabla Bandeja Cotizaciones-->
+<table class="table table-hover table-responsive-md">
+  <thead class="bg-blue-cat">
+    <tr>
+      <td class="text-white">Folio</td>
+      <td class="text-white">Socio</td>
+      <td class="text-white">Obra</td>
+      <td class="text-white">Importe</td>
+      <td class="text-white">Fecha solicitud</td>
+      <td class="text-white">Opciones</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cotizacion of cotizaciones">
+      <td>{{cotizacion.folio}}</td>
+      <td>{{cotizacion.socio}}</td>                  
+      <td>{{cotizacion.obra}}</td>
+      <td>{{cotizacion.importe}}</td>
+      <td>{{cotizacion.fechaSolicitud}}</td>
+      <td>
+        <a class="info p-0" placement="top" ngbTooltip="Ver detalle" (click)="open(content)">
+          <i class="far fa-eye font-medium-3 mr-2"></i>
+        </a>
+        <a class="success p-0" data-original-title="" placement="top" ngbTooltip="Aprobar cotización">
+          <i class="fas fa-check font-medium-3 mr-2"></i>
+        </a>
+
+        <!---Modal "Detalles"-->
+        <ng-template #content let-c="close" let-d="dismiss">  
+          <div class="modal-header bg-blue-cat text-white">
+            <h4 class="modal-title" id="modal-basic-title">Detalles</h4>
+          </div>
+          <div class="modal-body">    
+            <dl>
+              <dt>Folio</dt>
+              <dd>{{cotizacion.folio}}</dd>
+              <dt>Socio</dt>
+              <dd>{{cotizacion.socio}}</dd>
+              <dt>Obra</dt>
+              <dd>{{cotizacion.obra}}</dd>
+              <dt>Importe</dt>
+              <dd>{{cotizacion.importe}}</dd>
+              <dt>Fecha de solicitud</dt>
+              <dd>{{cotizacion.fechaSolicitud}}</dd>
+            </dl>  
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-gray-cat" aria-label="Close" (click)="d('Cross click')">Aceptar</button>     
+          </div> 
+        </ng-template>
+        <!---End Modal "Detalles"-->
+      </td>
+    </tr>             
+  </tbody>
+</table>
+<!---End Tabla Bandeja Cotizaciones-->

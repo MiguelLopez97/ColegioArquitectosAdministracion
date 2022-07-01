@@ -1,0 +1,203 @@
+<h2 mat-dialog-title class="card-title color-blue-cat">{{ titulo }}</h2>
+
+<mat-dialog-content class="mat-typography" *ngIf="!loading">
+  <form #socioForm="ngForm" (ngSubmit)="saveSocio(socioForm)">
+    <div class="form-body">
+      <div class="row" *ngIf="socio.idSocio">
+        <mat-form-field class="col-3">
+          <mat-label>Código</mat-label>
+          <input matInput #codigo="ngModel" name="codigo" [(ngModel)]="socio.codigo" required />
+          <mat-error *ngIf="codigo.invalid && codigo.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-3">
+          <mat-label>DRO</mat-label>
+          <input matInput #dro="ngModel" name="dro" [(ngModel)]="socio.dro" maxlength="6">
+        </mat-form-field>
+
+        <mat-form-field class="col-3">
+          <mat-label>CDA</mat-label>
+          <input matInput #cda="ngModel" name="cda" [(ngModel)]="socio.cda" maxlength="6">
+        </mat-form-field>
+
+        <mat-form-field class="col-3">
+          <mat-label>CDU</mat-label>
+          <input matInput #cdu="ngModel" name="cdu" [(ngModel)]="socio.cdu" maxlength="6">
+        </mat-form-field>
+      </div>
+
+      <div class="row" *ngIf="socio.idSocio">
+        <mat-form-field class="col-12">
+          <mat-label>Título</mat-label>
+          <input matInput #titulo="ngModel" name="titulo" [(ngModel)]="socio.titulo" maxlength="60" />
+          <mat-error *ngIf="titulo.invalid && titulo.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="col-4">
+          <mat-label>Nombre</mat-label>
+          <input matInput #nombreCompleto="ngModel" name="nombreCompleto" [(ngModel)]="socio.nombreCompleto" required maxlength="40" />
+          <mat-error *ngIf="nombreCompleto.invalid && nombreCompleto.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-4">
+          <mat-label>Apellido Paterno</mat-label>
+          <input matInput #apellidoPat="ngModel" name="apellidoPat" [(ngModel)]="socio.apellidoPat" required maxlength="80" />
+          <mat-error *ngIf="apellidoPat.invalid && apellidoPat.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-4">
+          <mat-label>Apellido Materno</mat-label>
+          <input matInput #apellidoMat="ngModel" name="apellidoMat" [(ngModel)]="socio.apellidoMat" required maxlength="80" />
+          <mat-error *ngIf="apellidoMat.invalid && apellidoMat.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="col-md-6 col-12">
+          <mat-label>Apodo</mat-label>
+          <input matInput #nickName="ngModel" name="nickName" [(ngModel)]="socio.nickName" maxlength="50">
+          <mat-error *ngIf="nickName.invalid && nickName.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-md-6 col-12">
+          <mat-label>Género</mat-label>
+          <mat-select name="genero" #genero="ngModel" [(ngModel)]="socio.genero" required>
+            <mat-option value="H">Hombre</mat-option>
+            <mat-option value="M">Mujer</mat-option>
+          </mat-select>
+          <mat-error *ngIf="genero.invalid && genero.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row" *ngIf="socio.idSocio">
+        <mat-form-field class="col-12">
+          <mat-label>Currículum Vitae</mat-label>
+          <textarea matInput #cv="ngModel" name="cv" rows="3" [(ngModel)]="socio.curriculumVitae" maxlength="2048"></textarea>
+          <mat-error *ngIf="cv.invalid && cv.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="col-6">
+          <mat-label>Calle</mat-label>
+          <input matInput #calle="ngModel" name="calle" [(ngModel)]="socio.calle" required malength="80" />
+          <mat-error *ngIf="calle.invalid && calle.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-6">
+          <mat-label>Número</mat-label>
+          <input matInput #numero="ngModel" name="numero" [(ngModel)]="socio.numero" (keypress)="validaNumeros($event)" maxlength="5" required />
+          <mat-error *ngIf="numero.invalid && numero.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <div class="col-12 d-flex justify-content-between">
+          <mat-form-field class="col-9 pl-0">
+            <mat-label>Código Postal</mat-label>
+            <input matInput #cp="ngModel" name="cp" [(ngModel)]="socio.codigoPostal" (keypress)="validaNumeros($event)" maxlength="5" required />
+            <mat-error *ngIf="cp.invalid && cp.touched">*Campo requerido</mat-error>
+          </mat-form-field>
+          <button
+            class="h-75"
+            type="button"
+            mat-raised-button
+            color="primary"
+            matTooltip="Buscar localidades por Código Postal"
+            matTooltipPosition="above"
+            (click)="getColonias()"
+            [disabled]="loadingColonias"
+          >
+            <mat-icon>search</mat-icon> Buscar
+          </button>
+        </div>
+
+        <div class="d-flex justify-content-center">
+          <mat-spinner diameter="40" *ngIf="loadingColonias"></mat-spinner>
+        </div>
+
+        <mat-form-field class="col-12" *ngIf="allColonias.length > 0">
+          <mat-label>Seleccione la localidad</mat-label>
+          <mat-select #localidad="ngModel" name="localidad" [(ngModel)]="socio.idCiudad" [disabled]="loadingColonias" required>
+            <mat-option *ngFor="let colonia of allColonias" [value]="colonia.idCd">{{ colonia.col }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="localidad.invalid && localidad.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="col-4">
+          <mat-label>Correo Electrónico</mat-label>
+          <input type="email" matInput #email="ngModel" name="email" [(ngModel)]="socio.correoElectronico" required maxlength="40" />
+          <mat-error *ngIf="email.invalid && email.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-4">
+          <mat-label>Teléfono Fijo</mat-label>
+          <input matInput #telFijo="ngModel" name="telFijo" [(ngModel)]="socio.telefonoFijo" (keypress)="validaNumeros($event)" maxlength="10">
+          <mat-error *ngIf="telFijo.invalid && telFijo.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-4">
+          <mat-label>Teléfono Móvil</mat-label>
+          <input matInput #cellphone="ngModel" name="cellphone" [(ngModel)]="socio.telefonoMovil" (keypress)="validaNumeros($event)" maxlength="10">
+          <mat-error *ngIf="cellphone.invalid && cellphone.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row" *ngIf="socio.idSocio">
+        <mat-form-field class="col-4">
+          <mat-label>CURP</mat-label>
+          <input style="text-transform: uppercase" matInput #curp="ngModel" name="curp" [(ngModel)]="socio.curp" maxlength="20" />
+          <mat-error *ngIf="curp.invalid && curp.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-4">
+          <mat-label>NSS</mat-label>
+          <input matInput #nss="ngModel" name="nss" [(ngModel)]="socio.nss" maxlength="50" (keypress)="validaNumeros($event)" />
+          <mat-error *ngIf="nss.invalid && nss.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-4">
+          <mat-label>INE</mat-label>
+          <input style="text-transform: uppercase" matInput #ife="ngModel" name="ife" [(ngModel)]="socio.ife" maxlength="30" />
+          <mat-error *ngIf="ife.invalid && ife.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row" *ngIf="socio.idSocio">
+        <mat-form-field class="col-12">
+          <mat-label>Fecha de Nacimiento</mat-label>
+          <input matInput [matDatepicker]="fechaNacimiento" #fNacimiento="ngModel" name="fechaNacimiento" [(ngModel)]="socio.fechaNacimiento" required />
+          <mat-datepicker-toggle matSuffix [for]="fechaNacimiento"></mat-datepicker-toggle>
+          <mat-datepicker touchUi #fechaNacimiento></mat-datepicker>
+          <mat-error *ngIf="fNacimiento.invalid && fNacimiento.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row" *ngIf="socio.idSocio">
+        <div class="col-12 d-flex flex-md-row flex-column">
+          <mat-checkbox color="primary" name="showEmail" [(ngModel)]="socio.mostrarCorreo">{{ socio.mostrarCorreo ? 'Ocultar Correo' : 'Mostrar Correo' }}</mat-checkbox>
+
+          <mat-checkbox color="primary" class="mx-md-2" name="showPhone" [(ngModel)]="socio.mostrarTelefono">{{
+            socio.mostrarTelefono ? 'Ocultar Teléfono' : 'Mostrar Teléfono'
+          }}</mat-checkbox>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <div class="text-right">
+        <button mat-raised-button type="submit" class="btn-blue-cat mr-2">Guardar</button>
+        <a mat-raised-button class="btn-gray-cat" (click)="closeDialog()">Cancelar</a>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<!--Div a mostrar cuando estén cargando los datos-->
+<div class="alert alert-light text-center" *ngIf="loading">
+  <p class="d-flex justify-content-center"><mat-spinner></mat-spinner></p>
+</div>

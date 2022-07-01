@@ -1,0 +1,73 @@
+<h2 mat-dialog-title class="card-title color-blue-cat">{{ titulo }}</h2>
+
+<mat-dialog-content class="mat-typography" *ngIf="!loading">
+  <form #normatecaForm="ngForm" (ngSubmit)="saveNormateca(normatecaForm)">
+    <div class="form-body">
+      <div class="row">
+        <mat-form-field class="col-12">
+          <mat-label>Título</mat-label>
+          <input matInput name="titulo" [(ngModel)]="normateca.titulo" autofocus />
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="col-12">
+          <mat-label>Palabras clave</mat-label>
+          <input matInput name="tags" [(ngModel)]="normateca.tags" />
+        </mat-form-field>
+      </div>
+
+      <div class="row" *ngIf="newArchivo">
+        <div class="col">
+          <mat-slide-toggle [(ngModel)]="normateca.esURL" [ngModelOptions]="{ standalone: true }"> Es URL </mat-slide-toggle>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="normateca.esURL && newArchivo">
+        <mat-form-field class="col-12">
+          <mat-label>URL</mat-label>
+          <input matInput name="archivo" [(ngModel)]="normateca.archivo" />
+        </mat-form-field>
+      </div>
+
+      <div class="row mt-2" *ngIf="!normateca.esURL && newArchivo">
+        <div class="col">
+          <a mat-raised-button class="" color="accent" (click)="fileInput.click()">
+            <span>Selecciona tu archivo</span>
+            <input class="form-control" #fileInput type="file" accept=".pdf" (change)="onChangeFile($event)" style="display: none" />
+          </a>
+        </div>
+      </div>
+
+      <div class="row mt-2" *ngIf="!normateca.esURL && archivo && newArchivo">
+        <div class="col-12">
+          <mat-label>Archivo: {{ archivo.fileName }}.{{ archivo.fileExt }}</mat-label>
+        </div>
+      </div>
+
+      <div class="row mt-2" *ngIf="normateca.archivo && !newArchivo">
+        <div class="col-12">
+          <mat-label>Archivo: {{ normateca.archivo }}</mat-label>
+        </div>
+      </div>
+
+      <div class="row mt-2" *ngIf="normateca.archivo && !newArchivo">
+        <div class="col-12">
+          <button mat-raised-button class="btn-red-cat" (click)="newArchivo = true">Eliminar archivo</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <div class="text-right">
+        <button mat-raised-button type="submit" class="btn-blue-cat mr-2">Guardar</button>
+        <a mat-raised-button class="btn-gray-cat" (click)="closeDialog()">Cancelar</a>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<!--Div a mostrar cuando estén cargando los datos-->
+<div class="alert alert-light text-center" *ngIf="loading">
+  <p class="d-flex justify-content-center"><mat-spinner></mat-spinner></p>
+</div>

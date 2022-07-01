@@ -1,0 +1,146 @@
+<h2 mat-dialog-title class="card-title color-blue-cat">{{ titulo }}</h2>
+
+<mat-dialog-content class="mat-typography" *ngIf="!loading">
+  <form #agendaForm="ngForm" (ngSubmit)="saveAgenda(agendaForm)">
+    <div class="form-body">
+      <div class="row">
+        <mat-form-field class="col-6">
+          <mat-label>Seleccione un producto</mat-label>
+          <mat-select name="producto" #producto="ngModel" [(ngModel)]="agenda.idProducto" required>
+            <mat-option *ngFor="let producto of productos" [value]="producto.idProducto" (click)="setInfoProductos(producto)">
+              {{ producto.descripcion }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="producto.invalid && producto.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-6">
+          <mat-label>Organizador</mat-label>
+          <input matInput #organizador="ngModel" name="organizador" [(ngModel)]="agenda.organizador" required />
+          <mat-error *ngIf="organizador.invalid && organizador.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="col-md-12">
+          <mat-label>Descripción</mat-label>
+          <textarea matInput #descripcion="ngModel" rows="3" name="descripcion" [(ngModel)]="agenda.descripcion" required></textarea>
+          <mat-error *ngIf="descripcion.invalid && descripcion.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="col-12">
+          <mat-label>Contacto</mat-label>
+          <input matInput #contacto="ngModel" name="contacto" [(ngModel)]="agenda.contacto" required />
+          <mat-error *ngIf="contacto.invalid && contacto.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="col-4">
+          <mat-label>Teléfono</mat-label>
+          <input matInput #telefono="ngModel" name="telefono" [(ngModel)]="agenda.telefono" (keypress)="validaNumeros($event)" maxlength="10" required />
+          <mat-error *ngIf="telefono.invalid && telefono.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-8">
+          <mat-label>Correo</mat-label>
+          <input matInput #email="ngModel" name="correo" [(ngModel)]="agenda.correo" required />
+          <mat-error *ngIf="email.invalid && email.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="col-4">
+          <mat-label>Costo a socio</mat-label>
+          <input matInput #costoSocio="ngModel" name="costoSocio" [(ngModel)]="agenda.costoSocio" (keypress)="validaNumeros($event)" maxlength="6" required disabled />
+          <mat-error *ngIf="costoSocio.invalid && costoSocio.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-4">
+          <mat-label>Costo a estudiante</mat-label>
+          <input
+            matInput
+            #costoEstudiante="ngModel"
+            name="costoEstudiante"
+            [(ngModel)]="agenda.costoEstudiante"
+            (keypress)="validaNumeros($event)"
+            maxlength="6"
+            required
+            disabled
+          />
+          <mat-error *ngIf="costoEstudiante.invalid && costoEstudiante.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-4">
+          <mat-label>Costo al público</mat-label>
+          <input
+            matInput
+            #costoPublico="ngModel"
+            name="costoPublico"
+            [(ngModel)]="agenda.costoPublico"
+            (keypress)="validaNumeros($event)"
+            maxlength="6"
+            required
+            disabled
+          />
+          <mat-error *ngIf="costoPublico.invalid && costoPublico.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="col-4">
+          <mat-label>Fecha inicio</mat-label>
+          <input matInput [matDatepicker]="pickerFInicio" #fInicio="ngModel" name="fechaInicio" [(ngModel)]="agenda.fechaInicio" required />
+          <mat-datepicker-toggle matSuffix [for]="pickerFInicio"></mat-datepicker-toggle>
+          <mat-datepicker touchUi #pickerFInicio></mat-datepicker>
+          <mat-error *ngIf="fInicio.invalid && fInicio.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-4">
+          <mat-label>Fecha fin</mat-label>
+          <input matInput [matDatepicker]="pickerFFin" #fFin="ngModel" name="fechaFin" [(ngModel)]="agenda.fechaFin" required />
+          <mat-datepicker-toggle matSuffix [for]="pickerFFin"></mat-datepicker-toggle>
+          <mat-datepicker touchUi #pickerFFin></mat-datepicker>
+          <mat-error *ngIf="fFin.invalid && fFin.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-4">
+          <mat-label>Horario</mat-label>
+          <input matInput #horario="ngModel" name="horario" [(ngModel)]="agenda.horario" required />
+          <mat-error *ngIf="horario.invalid && horario.touched">*Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row mt-3">
+        <!-- <mat-form-field class="col-12 col-md-4 d-none" *ngIf="esUrl && newArchivo">
+          <mat-label>URL de la imagen</mat-label>
+          <input matInput name="imagen" [(ngModel)]="agenda.flyer" />
+        </mat-form-field> -->
+
+        <div class="col-12 col-md-6 col-xl-4">
+          <img src="{{ imgUri }}" class="imgFle img-thumbnail" />
+          <a mat-raised-button class="w-100" color="accent" (click)="fileInput.click()">
+            Seleccionar flyer
+            <input class="form-control" #fileInput type="file" accept=".png, .jpg, .jpeg" (change)="onChangeFile($event, 'img')" style="display: none" />
+          </a>
+          <p class="mt-2" *ngIf="imagen">{{ imagen.fileName }}.{{ imagen.fileExt }}</p>
+        </div>
+      </div>
+      <!-- Input/Select Ends -->
+    </div>
+
+    <div class="form-actions">
+      <div class="text-right">
+        <button mat-raised-button type="submit" class="btn-blue-cat mr-2">Guardar</button>
+        <a mat-raised-button class="btn-gray-cat" (click)="closeDialog()">Cancelar</a>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<!--Div a mostrar cuando estén cargando los datos-->
+<div class="alert alert-light text-center" *ngIf="loading">
+  <p class="d-flex justify-content-center"><mat-spinner></mat-spinner></p>
+</div>

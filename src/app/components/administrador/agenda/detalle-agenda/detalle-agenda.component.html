@@ -1,0 +1,94 @@
+<h1 mat-dialog-title class="color-blue-cat">Detalles</h1>
+
+<div mat-dialog-content class="mat-typography" *ngIf="!loading">
+  <div class="row" *ngIf="producto != null">
+    <div class="col-md-12">
+      <dt>Producto</dt>
+      <dd>{{ producto }}</dd>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <dt>Descripción</dt>
+      <dd>{{ agenda.descripcion }}</dd>
+    </div>
+    <div class="col-md-6">
+      <dt>Organizador</dt>
+      <dd>{{ agenda.organizador }}</dd>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <dt>Contacto</dt>
+      <dd>{{ agenda.contacto }}</dd>
+    </div>
+    <div class="col-md-6">
+      <dt>Teléfono</dt>
+      <dd>{{ agenda.telefono }}</dd>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <dt>Correo</dt>
+      <dd>{{ agenda.correo }}</dd>
+    </div>
+    <div class="col-md-6">
+      <dt>Horario</dt>
+      <dd>{{ agenda.horario }}</dd>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <dt>Costo a socio</dt>
+      <dd>{{ agenda.costoSocio | currency: 'MXN' }}</dd>
+    </div>
+    <div class="col-md-6">
+      <dt>Costo a estudiante</dt>
+      <dd>{{ agenda.costoEstudiante | currency: 'MXN' }}</dd>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <dt>Costo al público</dt>
+      <dd>{{ agenda.costoPublico | currency: 'MXN' }}</dd>
+    </div>
+    <div class="col-md-6">
+      <dt>Fecha de inicio</dt>
+      <dd>{{ agenda.fechaInicio | date: 'mediumDate' }}</dd>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <dt>Fecha de finalización</dt>
+      <dd>{{ agenda.fechaFin | date: 'mediumDate' }}</dd>
+    </div>
+    <div class="col-md-6">
+      <dt>Flyer</dt>
+      <dd>{{ agenda.flyer }}</dd>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <dt>Imagen</dt>
+      <img [src]="agenda.flyer" class="img-evento mb-2" />
+    </div>
+  </div>
+
+  <div class="form-actions mt-2">
+    <div class="text-right">
+      <button mat-raised-button class="btn-gray-cat" (click)="closeDialog()">Aceptar</button>
+    </div>
+  </div>
+</div>
+
+<!--Div a mostrar cuando estén cargando los datos-->
+<div class="alert alert-light text-center" *ngIf="loading">
+  <p class="d-flex justify-content-center"><mat-spinner></mat-spinner></p>
+</div>

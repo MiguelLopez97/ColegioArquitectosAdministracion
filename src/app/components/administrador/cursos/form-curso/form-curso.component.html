@@ -1,0 +1,123 @@
+<h2 mat-dialog-title class="card-title color-blue-cat">{{title}}</h2>
+
+<div class="alert alert-danger" *ngIf="errorRangoFechas">
+  <p class="mb-0">
+    <i class="far fa-calendar-alt"></i> Rango de fechas incorrecto. Verifica las fechas establecidas.
+  </p>
+</div>
+
+<div class="alert alert-danger" *ngIf="errorRangoHoras">
+  <p class="mb-0">
+    <i class="fas fa-clock"></i> Rango de horas incorrecto. Verifica las horas establecidas.
+  </p>
+</div>
+
+<mat-dialog-content class="mat-typography" *ngIf="!loading">
+  <form [formGroup]="cursoForm" (ngSubmit)="saveCurso()">
+    <div class="form-body">
+      <div class="row">
+        <mat-form-field class="col-md-12">
+          <mat-label>Descripción</mat-label>
+          <textarea matInput rows="3" name="descripcion" formControlName="descripcion"></textarea>
+          <mat-error *ngIf="descripcionNoValido">*Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="col-12 col-md-3">
+          <mat-label>Fecha inicio</mat-label>
+          <input matInput [matDatepicker]="pickerFInicio" name="fechaInicio" formControlName="fechaInicio">
+          <mat-datepicker-toggle matSuffix [for]="pickerFInicio"></mat-datepicker-toggle>
+          <mat-datepicker touchUi #pickerFInicio></mat-datepicker>
+          <mat-error *ngIf="fechaInicioNoValido">*Campo requerido</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-12 col-md-3">
+          <mat-label>Hora inicio</mat-label>
+          <input type="time" matInput name="horaInicio" formControlName="horaInicio">
+          <mat-error *ngIf="horaInicioNoValido">*Campo requerido</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-12 col-md-3">
+          <mat-label>Fecha término</mat-label>
+          <input matInput [matDatepicker]="pickerFFin" name="fechaFin" formControlName="fechaFin">
+          <mat-datepicker-toggle matSuffix [for]="pickerFFin"></mat-datepicker-toggle>
+          <mat-datepicker touchUi #pickerFFin></mat-datepicker>
+          <mat-error *ngIf="fechaFinNoValido">*Campo requerido</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-12 col-md-3">
+          <mat-label>Hora término</mat-label>
+          <input type="time" matInput name="horaFin" formControlName="horaFin">
+          <mat-error *ngIf="horaFinNoValido">*Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="col-12">
+          <mat-label>Sede</mat-label>
+          <input matInput name="sede" formControlName="sede">
+          <mat-error *ngIf="sedeNoValido">*Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="col-12 col-md-4">
+          <mat-label>Instructor 1</mat-label>
+          <mat-select name="instructor1" formControlName="instructor1">
+            <mat-option *ngFor="let instructor of instructores" 
+                        [value]="instructor.idInstructor"
+                        [disabled]="instructor.idInstructor == cursoForm.controls['instructor2'].value">
+              {{instructor.tratamiento}} {{instructor.nombre}} {{instructor.aPaterno}} {{instructor.aMaterno}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="instructor1NoValido">*Campo requerido</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-12 col-md-4">
+          <mat-label>Instructor 2</mat-label>
+          <mat-select name="instructor2" formControlName="instructor2">
+            <mat-option *ngFor="let instructor of instructores" 
+                        [value]="instructor.idInstructor" 
+                        [disabled]="instructor.idInstructor == cursoForm.controls['instructor1'].value">
+              {{instructor.tratamiento}} {{instructor.nombre}} {{instructor.aPaterno}} {{instructor.aMaterno}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="instructor2NoValido">*Campo requerido</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-12 col-md-4">
+          <mat-label>Producto</mat-label>
+          <mat-select name="producto" formControlName="producto">
+            <mat-option *ngFor="let producto of productos" [value]="producto.idProducto">
+              {{producto.descripcion}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="productoNoValido">*Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-12 col-md-3">
+          <img src="{{imgUri}}" class="img-flyer img-thumbnail">
+          <a mat-raised-button class="w-100 mt-1" color="primary" (click)="fileInput.click()">
+            Seleccionar flyer
+            <input class="d-none" #fileInput type="file" (change)="onFileInput($event)">
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <div class="text-right">
+        <button mat-raised-button type="submit" class="btn-blue-cat mr-2">Guardar</button>
+        <a mat-raised-button class="btn-gray-cat" (click)="closeDialog()">Cancelar</a>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<!--Div a mostrar cuando estén cargando los datos-->
+<div class="alert alert-light text-center" *ngIf="loading">
+  <p class="d-flex justify-content-center"><mat-spinner></mat-spinner></p>
+</div>

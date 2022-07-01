@@ -1,0 +1,18 @@
+.header-navbar {
+    background-color: #2054A1;
+}
+
+.fullnameUser {
+    display: block;
+    width: 100%;
+    padding: 0.25rem 1.5rem;
+    clear: both;
+    font-weight: 400;
+    text-align: inherit;
+    white-space: nowrap;
+}
+
+//Márgen para que el icono de los '3 puntos en vertical', esté al mismo nivel con el icono de 'Menú de las 3 barras' cuando es responsivo
+.margin-top-responsive {
+    margin-top: 18px;
+}

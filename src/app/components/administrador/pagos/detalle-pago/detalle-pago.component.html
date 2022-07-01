@@ -1,0 +1,43 @@
+<h1 mat-dialog-title class="color-blue-cat">Detalles</h1>
+
+<div mat-dialog-content class="mat-typography" *ngIf="!loading">
+  <div class="row" *ngIf="pago">
+    <div class="col-md-6">
+      <dt>Folio</dt>
+      <dd>{{ pago.folio }}</dd>
+    </div>
+    <div class="col-md-6">
+      <dt>Socio</dt>
+      <dd>{{ socio.nombreCompleto }} {{ socio.apellidoPat }} {{ socio.apellidoMat }}</dd>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <dt>Fecha</dt>
+      <dd>{{ pago.fechaPago | date: 'mediumDate' }}</dd>
+    </div>
+    <div class="col-md-6">
+      <dt>Monto</dt>
+      <dd>{{ pago.monto | currency: 'MXN' }}</dd>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <dt>Producto/Servicio Pagado</dt>
+      <dd>{{ pago.producto }}</dd>
+    </div>
+  </div>
+
+  <div class="form-actions mt-2">
+    <div class="text-right">
+      <button mat-raised-button class="btn-gray-cat" (click)="closeDialog()">Aceptar</button>
+    </div>
+  </div>
+</div>
+
+<!--Div a mostrar cuando estén cargando los datos-->
+<div class="alert alert-light text-center" *ngIf="loading">
+  <p class="d-flex justify-content-center"><mat-spinner></mat-spinner></p>
+</div>

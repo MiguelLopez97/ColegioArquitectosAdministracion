@@ -1,0 +1,25 @@
+.title-mat-card {
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 0.05rem;
+    font-size: 1.25rem;
+}
+
+.img-datatable {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+//Responsive para los botones de 'Agregar slide'
+@media (max-width: 576px) {
+    .btn-add {
+        margin-bottom: 25px;
+    }
+
+    .img-datatable {
+        width: 200px;
+        height: 80px;
+        object-fit: cover;
+    }
+}

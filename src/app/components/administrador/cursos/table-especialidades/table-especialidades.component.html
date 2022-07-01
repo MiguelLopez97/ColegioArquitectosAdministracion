@@ -1,0 +1,63 @@
+ <!---Button Agregar Especialidad-->
+ <div class="d-flex justify-content-end">
+  <button mat-fab color="primary" matTooltip="Agregar especialidad" (click)="openDialog()" matTooltipPosition="left">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+<!---Button Agregar Especialidad-->
+
+<!--Input para filtrar datos-->
+<mat-form-field class="pl-0 col-12 col-md-4 mt-n4">
+  <mat-label>Filtrar</mat-label>
+  <input matInput (keyup)="applyFilter($event)" #input>
+</mat-form-field>
+
+<!---Tabla Especialidades Curso-->
+<table mat-table [dataSource]="dataSource" matSort class="w-100 table-hover table-responsive-md">
+  <!--Columna Nombre-->
+  <ng-container matColumnDef="nombre">
+    <th class="bg-blue-cat text-white" mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+    <td mat-cell *matCellDef="let element">
+      <a class="text-primary" (click)="openDialog(element.idCursoEspecialidad)">{{element.nombre}}</a>
+    </td>
+  </ng-container>
+
+  <!--Columna Horas-->
+  <ng-container matColumnDef="horas">
+    <th class="bg-blue-cat text-white" mat-header-cell *matHeaderCellDef mat-sort-header>Horas</th>
+    <td mat-cell *matCellDef="let element">{{element.horas}}</td>
+  </ng-container>
+
+  <!--Columna Opciones -->
+  <ng-container matColumnDef="opciones">
+    <th class="bg-blue-cat text-white" mat-header-cell *matHeaderCellDef mat-sort-header>Opciones</th>
+    <td mat-cell *matCellDef="let element; let i = index">
+      <button mat-icon-button color="accent" matTooltipPosition="above" matTooltip="Editar" (click)="openDialog(element.idCursoEspecialidad)">
+        <mat-icon>create</mat-icon>
+      </button>
+
+      <button mat-icon-button color="warn" matTooltipPosition="above" matTooltip="Eliminar" (click)="deleteEspecialidad(element.idCursoEspecialidad)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+<!---End Tabla Especialidades Curso-->
+
+<!--Div a mostrar cuando estén cargando los datos-->
+<div class="alert alert-light text-center" *ngIf="loading">
+  <h4 class="alert-heading">Cargando</h4>
+  <p class="d-flex justify-content-center"><mat-spinner diameter="50"></mat-spinner></p>
+  <p class="mb-0">Espere por favor</p>
+</div>
+
+<!--Div a mostrar cuando no haya datos-->
+<div class="alert alert-warning text-center" *ngIf="!loading && dataSource.data.length === 0">
+  <p><mat-icon class="icon-material">info</mat-icon></p>
+  <h4 class="alert-heading">No hay datos para mostrar</h4>
+</div>
+
+<mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>

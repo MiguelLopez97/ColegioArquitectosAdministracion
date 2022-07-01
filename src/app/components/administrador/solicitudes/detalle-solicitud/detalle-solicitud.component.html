@@ -1,0 +1,79 @@
+<h1 mat-dialog-title class="color-blue-cat">Detalles</h1>
+
+<div mat-dialog-content class="mat-typography" *ngIf="!loading">
+  <div class="row">
+    <div class="col-md-6">
+      <dt>Folio de pago</dt>
+      <dd>{{solicitud.folio}}</dd>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-lg-4">
+      <dt>Nombre</dt>
+      <dd>{{solicitud.nombre}}</dd>
+    </div>
+
+    <div class="col-md-6 col-lg-4">
+      <dt>Apellido paterno</dt>
+      <dd>{{solicitud.aPaterno}}</dd>
+    </div>
+
+    <div class="col-md-6 col-lg-4">
+      <dt>Apellido materno</dt>
+      <dd>{{solicitud.aMaterno}}</dd>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-lg-4">
+      <dt>Tipo de solicitud</dt>
+      <dd>{{nombreTipoSolicitud}}</dd>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <dt>Estatus</dt>
+      <dd>{{solicitud.estatus}}</dd>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <dt>Folio de pago</dt>
+      <dd *ngIf="solicitud.folioPago != ''">{{solicitud.folioPago}}</dd>
+      <dd *ngIf="solicitud.folioPago == ''" class="text-muted">Pendiente de pago</dd>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <dt>Nota del socio</dt>
+      <dd *ngIf="solicitud.notaSocio != ''">{{solicitud.notaSocio}}</dd>
+      <dd *ngIf="solicitud.notaSocio == ''" class="text-muted">Sin observaciones</dd>
+    </div>
+    <div class="col-md-6">
+      <dt>Nota del CAT</dt>
+      <dd *ngIf="solicitud.notaCAT != ''">{{solicitud.notaCAT}}</dd>
+      <dd *ngIf="solicitud.notaCAT == ''" class="text-muted">Sin observaciones</dd>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <dt>Fecha de solicitud</dt>
+      <dd>{{solicitud.fechaSolicitud | date: 'd MMMM y, h:mm a'}}</dd>
+    </div>
+    <div class="col-md-6">
+      <dt>Fecha de atención</dt>
+      <dd *ngIf="solicitud.fechaAtencion != null">{{solicitud.fechaAtencion | date: 'd MMMM y, h:mm a'}}</dd>
+      <dd *ngIf="solicitud.fechaAtencion == null" class="text-muted">Pendiente por atender</dd>
+    </div>
+  </div>
+
+  <div class="form-actions mt-2">
+    <div class="text-right">
+      <button mat-raised-button class="btn-gray-cat" (click)="closeDialog()">Aceptar</button>
+    </div>
+  </div>
+</div>
+
+<!--Div a mostrar cuando estén cargando los datos-->
+<div class="alert alert-light text-center" *ngIf="loading">
+  <p class="d-flex justify-content-center"><mat-spinner></mat-spinner></p>
+</div>

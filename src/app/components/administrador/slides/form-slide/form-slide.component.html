@@ -1,0 +1,65 @@
+<h2 mat-dialog-title class="color-blue-cat">{{titulo}}</h2>
+
+<mat-dialog-content class="mat-typography">
+  <!---
+  <div class="row">
+    <mat-form-field class="col-12 col-md-12">
+      <mat-label>Ingresa un texto para la imagen</mat-label>
+      <input matInput formControlName="textoSlide">
+      <mat-error *ngIf="textoNoValido">*Campo requerido</mat-error>
+    </mat-form-field>
+  </div>
+  -->
+
+  <div class="row">
+    <div class="col-md-12 text-center">
+
+      <div appNgDropSlide [ngClass]="{'file-over': estaSobreElemento}" [archivos]="imageSlide" (mouseSobre)="estaSobreElemento = $event" class="well drop-zone d-none d-md-block">
+        <h4>Arrastra tu imagen para el slide aquí</h4>
+        <img src="assets/img/drop-images.png">
+      </div>
+
+      <p class="d-none d-md-block">o</p>
+
+      <a mat-raised-button class="" color="accent" (click)="fileInput.click()">
+        <span>Selecciona tu archivo</span>
+        <input class="form-control" #fileInput type="file" accept=".png, .jpg, .jpeg" (change)="onChangeFile($event)" style="display:none;">
+      </a>
+    </div>    
+  </div>
+  
+  <div class="row mt-2">
+    <div class="col-md-12">
+      <table class="table">
+        <thead class="bg-blue-cat">
+          <tr>
+            <td class="text-white">#</td>
+            <td class="text-white">Nombre archivo</td>
+            <td class="text-white">Tamaño</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let archivo of imageSlide; let i = index">
+            <td>{{i+1}}</td>
+            <td [ngClass]="{'text-green': archivo.progreso >= 100}">{{archivo.nombreArchivo}}</td>
+            <td *ngIf="archivo.archivo.size <= 1000000">{{ archivo.archivo.size / 1024 | number: '.2-2' }} KB</td>
+            <td *ngIf="archivo.archivo.size >= 1000000">{{ archivo.archivo.size / 1024/1024 | number: '.2-2' }} MB</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions class="d-flex justify-content-end mt-1 mb-0 buttons-actions">
+  <button type="button" 
+          class="mr-1 btn-upload" 
+          mat-raised-button color="primary"
+          [disabled]="imageSlide.length == 0"
+          (click)="cargarImagenSlide()">
+    Cargar archivo
+  </button>
+  <button type="button" class="mr-1" mat-raised-button color="warn" (click)="limpiarArchivo()">Limpiar</button>
+  <a mat-raised-button class="btn-gray-cat" (click)="closeDialog()">Cancelar</a>
+</mat-dialog-actions>

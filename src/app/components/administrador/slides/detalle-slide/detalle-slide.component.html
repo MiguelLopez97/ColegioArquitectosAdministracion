@@ -1,0 +1,40 @@
+<h2 mat-dialog-title class="color-blue-cat">Detalles</h2>
+
+<div *ngIf="!loading">
+  <mat-dialog-content class="mat-typography">
+
+    <div class="row">
+      <div class="col-md-12">
+        <a href="{{slide.foto}}" data-fancybox>
+          <img [src]="slide.foto" class="img-fluid img-thumbnail">
+        </a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <dt>URI de la imagen</dt>
+        <dd>
+          <a href="{{slide.foto}}">{{slide.foto}}</a>
+        </dd>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <dt>Fecha de Actualización</dt>
+        <dd>{{slide.fechaActualizacion | date: 'd MMMM y, h:mm a'}}</dd>
+      </div>
+    </div>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="d-flex justify-content-end mb-n2">
+    <button mat-raised-button class="btn-gray-cat" mat-dialog-close>Aceptar</button>
+  </mat-dialog-actions>
+</div>
+
+<!--Div a mostrar cuando estén cargando los datos-->
+<div class="alert alert-light text-center" *ngIf="loading">
+  <p class="d-flex justify-content-center"><mat-spinner></mat-spinner></p>
+</div>
